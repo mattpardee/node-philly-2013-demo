@@ -11,8 +11,7 @@
   "dependencies": {
     "express": "latest",
     "ejs": "latest",
-    "mongoose": "latest",
-    "swagger-node-express": "latest"
+    "mongoose": "latest"
   },
 
   "devDependencies": {

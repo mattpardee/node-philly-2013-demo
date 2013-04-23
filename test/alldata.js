@@ -92,18 +92,16 @@ describe('rest', function () {
                 title:'Test Blog 1',
                 body:'Some blogged goodness'
             })).expect(200).end(function (err, res) {
-                    if (err)
-                        console.log('ERROR', arguments);
+                if (err)
+                    console.log('ERROR', arguments);
 
-                    res.should.have.property('body');
-                    res.body.should.have.property('author', 'superblogger');
-                    res.body.should.have.property('title', 'Test Blog 1');
-                    res.body.should.have.property('body', 'Some blogged goodness');
-                    id = res.body._id;
-                    done();
-
-                });
-
+                res.should.have.property('body');
+                res.body.should.have.property('author', 'superblogger');
+                res.body.should.have.property('title', 'Test Blog 1');
+                res.body.should.have.property('body', 'Some blogged goodness');
+                id = res.body._id;
+                done();
+            });
         });
     });
 });
