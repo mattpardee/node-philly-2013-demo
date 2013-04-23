@@ -1,4 +1,6 @@
-var resource = require('./resource'); /*
+var resource = require('./resource');
+
+/*
  * GET home page.
  */
  
@@ -15,5 +17,4 @@ module.exports = function(app, options) {
   
   
   resource.setup(app, options);
-  
 }

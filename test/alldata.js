@@ -50,17 +50,60 @@ describe('rest', function () {
                     email: 'matt@strongloop.com',
                     password: 'strongstrong'
             })).expect(200).end(function (err, res) {
+                if (err)
+                    console.log('ERROR', arguments);
+
+                res.should.have.property('body');
+                res.body.should.have.property('username', 'mattpardee');
+                res.body.should.have.property('first_name', 'Matt');
+                res.body.should.have.property('last_name', 'Pardee');
+                res.body.should.have.property('email', 'matt@strongloop.com');
+                id = res.body._id;
+                done();
+            });
+        });
+    });
+
+    describe('GET /rest/blogs', function () {
+        it('should return empty list', function (done) {
+            request(app).get('/rest/blogs')
+                .expect('Content-Type', /json/)
+                .expect(200)
+                .end(function (err, res) {
                     if (err)
                         console.log('ERROR', arguments);
 
                     res.should.have.property('body');
-                    res.body.should.have.property('username', 'mattpardee');
-                    res.body.should.have.property('first_name', 'Matt');
-                    res.body.should.have.property('last_name', 'Pardee');
-                    res.body.should.have.property('email', 'matt@strongloop.com');
-                    id = res.body._id;
+                    res.body.should.be.an.instanceOf(Array);
+                    res.body.should.have.length(0);
+
                     done();
                 });
+        });
+    });
+
+    describe('POST /rest/blogs', function () {
+        it('should create a new blogs and return it', function (done) {
+            request(app)
+                .post('/rest/blogs')
+                .set('Content-Type', 'application/json')
+                .send(json({
+                author: 'superblogger',
+                title:'Test Blog 1',
+                body:'Some blogged goodness'
+            })).expect(200).end(function (err, res) {
+                    if (err)
+                        console.log('ERROR', arguments);
+
+                    res.should.have.property('body');
+                    res.body.should.have.property('author', 'superblogger');
+                    res.body.should.have.property('title', 'Test Blog 1');
+                    res.body.should.have.property('body', 'Some blogged goodness');
+                    id = res.body._id;
+                    done();
+
+                });
+
         });
     });
 });

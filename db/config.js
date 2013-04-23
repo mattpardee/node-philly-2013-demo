@@ -11,4 +11,3 @@ exports.mongodb = {
     'db': 'restapp_development'
   }
 }
-
